@@ -1,0 +1,66 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: instamart-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgrespassword
+      POSTGRES_DB: ecommerce_platform
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d ecommerce_platform"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    container_name: instamart-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    command: ["redis-server", "--appendonly", "yes"]
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: instamart-api
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    environment:
+      HOST: "0.0.0.0"
+      PORT: 8080
+      ENV: "dev"
+      PG_HOST: "postgres"
+      PG_PORT: 5432
+      PG_DB: "ecommerce_platform"
+      PG_USER: "postgres"
+      PG_PASSWORD: "postgrespassword"
+      PG_SSL_MODE: "disable"
+      JWT_SECRET: "instamart_super_secret_jwt_key_2026_dev_mode"
+      ADMIN_DEFAULT_EMAIL: "admin@instamart.io"
+      ADMIN_DEFAULT_PASSWORD: "AdminSecurePassword2026!"
+      ADMIN_ROLE: "Admin"
+      REDIS_HOST: "redis"
+      REDIS_PORT: 6379
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+volumes:
+  pgdata:
