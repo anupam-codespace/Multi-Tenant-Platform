@@ -1,4 +1,4 @@
-# Multi-Tenant Quick-Commerce Platform & Agentic AI Engine
+# Multi-Tenant Quick-Commerce Platform & Agentic AI Engine.
 
 [![CI](https://github.com/anupam-codespace/Multi-Tenant-Platform/actions/workflows/ci.yml/badge.svg)](https://github.com/anupam-codespace/Multi-Tenant-Platform/actions/workflows/ci.yml)
 [![Go Version](https://img.shields.io/badge/Go-1.22+-00ADD8?style=flat&logo=go)](https://golang.org)
