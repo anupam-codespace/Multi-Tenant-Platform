@@ -8,6 +8,7 @@ import (
 	"github.com/go-playground/validator"
 )
 
+
 type ValidationService interface {
 	ValidateReq(c *gin.Context, request interface{}) []string
 	ValidateEmailPassword(fl validator.FieldLevel) bool
