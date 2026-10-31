@@ -8,9 +8,7 @@
 A high-performance, multi-tenant backend engine engineered in **Go** for **Quick-Commerce (10-15 minute delivery) and Multi-Store E-Commerce ecosystems**. Designed to solve the demanding challenges of hyper-local dark stores, high-concurrency flash ordering, atomic inventory reservations, and autonomous **Agentic AI shopping workflows**.
 
 ---
-
 ## Architectural Highlights
-
 - **Hyper-Local Dark Store Architecture**: Multi-tenant isolation for micro-warehouses (pods) and merchant partners, isolating catalog visibility and stock per geo-cluster.
 - **Atomic Inventory Reservation with TTL**: High-throughput distributed inventory manager that prevents race conditions and overselling during flash traffic spikes, featuring background sweepers for automated TTL expiration.
 - **Idempotent Order Pipeline**: Custom middleware enforcing `X-Idempotency-Key` semantics to prevent double-charging and duplicate checkouts caused by mobile network drops.
